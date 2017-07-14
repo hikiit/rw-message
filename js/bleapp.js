@@ -16,7 +16,10 @@ function init() {
 
   readButton = document.querySelector("#read-button");
   readButton.addEventListener("click", readValueBLE);
-  
+
+  writeButton = document.querySelector("#write-button");
+  writeButton.addEventListener("click", writeValueBLE);
+
   loading = document.querySelector("#loading");
 }
 
@@ -72,7 +75,13 @@ function searchBLE() {
 function readValueBLE() {
   var ary_u8 = new Uint8Array( [] );
   bleCharacteristic.writeValue(ary_u8);
-  console.log("testPrint")
+  console.log("testRead")
+}
+
+function writeValueBLE() {
+  var ary_u8 = new Uint8Array( [] );
+  bleCharacteristic.writeValue(ary_u8);
+  console.log("testWrite")
 }
 
 window.addEventListener("load", init);
