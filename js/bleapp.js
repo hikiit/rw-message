@@ -74,8 +74,11 @@ function searchBLE() {
 
 function readValueBLE() {
   var ary_u8 = new Uint8Array( [] );
-  bleCharacteristic.writeValue(ary_u8);
-  console.log("testRead")
+  bleCharacteristic.readValue(ary_u8)
+    .then(value => {
+      let message = value.getUint8(0);
+      console.log(message);
+    });
 }
 
 function writeValueBLE() {
