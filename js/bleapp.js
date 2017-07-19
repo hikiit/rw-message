@@ -82,9 +82,9 @@ function readValueBLE() {
 }
 
 function writeValueBLE() {
-  var ary_u8 = new Uint8Array( [] );
   var form_d = document.getElementById("data-form").value;
-  console.log(form_d);
+  var ary_u8 = new Uint8Array( new TextEncoder().encode(form_d) );
+  console.log(ary_u8);
   bleCharacteristic.writeValue(ary_u8);
 }
 
