@@ -74,18 +74,28 @@ function searchBLE() {
 
 function readValueBLE() {
   var ary_u8 = new Uint8Array( [] );
-  bleCharacteristic.readValue(ary_u8)
+  try {
+    bleCharacteristic.readValue(ary_u8)
     .then(value => {
       let message = value.getUint8(0);
       console.log(message);
     });
+  }
+  catch (e) {
+    console.log(e);
+  }
 }
 
 function writeValueBLE() {
   var form_d = document.getElementById("data-form").value;
-  var ary_u8 = new Uint8Array( new TextEncoder().encode(form_d) );
+  var ary_u8 = new Uint8Array( new TextEncoder("utf-8").encode(form_d) );
   console.log(ary_u8);
-  bleCharacteristic.writeValue(ary_u8);
+  try {
+    bleCharacteristic.writeValue(ary_u8);
+  }
+  catch (e) {
+    console.log(e);
+  }
 }
 
 window.addEventListener("load", init);
