@@ -1,9 +1,11 @@
 // UUID
-const SERVICE_UUID = "";
-const CHARACTERISTIC_UUID = "";
+const SERVICE_UUID = "713d0000-503e-4c75-ba94-3148f18d941e";
+const TX_CHARACTERISTIC_UUID = "713d0003-503e-4c75-ba94-3148-f18d941e";
+const RX_CHARACTERISTIC_UUID = "713d0002-503e-4c75-ba94-3148-f18d941e";
 
 // キャラクタリスティック
-let bleCharacteristic;
+let txCharacteristic;
+let rxCharacteristic;
 
 let searchButton;
 let readButton;
@@ -53,17 +55,28 @@ function searchBLE() {
       console.log("success:service");
 
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
-      return service.getCharacteristic(CHARACTERISTIC_UUID);
+      return service.getCharacteristic(TX_CHARACTERISTIC_UUID);
     })
     .then(characteristic => {
-      console.log("success:characteristic");
+      console.log("success:txcharacteristic");
 
-      bleCharacteristic = characteristic;
+      txCharacteristic = characteristic;
+    })
+    
+    .then(service => {
+      // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
+      return service.getCharacteristic(RX_CHARACTERISTIC_UUID);
+    })
+    .then(characteristic => {
+      console.log("success:rxcharacteristic");
+
+      rxCharacteristic = characteristic;
       
       console.log("success:connect BLE");
       
       loading.className = "hide";
     })
+    
     .catch(error => {
       console.log("Error : " + error);
 
