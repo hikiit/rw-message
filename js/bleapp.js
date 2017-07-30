@@ -54,8 +54,11 @@ function searchBLE() {
     .then(service => {
       console.log("success:service");
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
-      service.getCharacteristic(RX_CHARACTERISTIC_UUID);
-      service.getCharacteristic(TX_CHARACTERISTIC_UUID);
+      return Promise.all([
+        service.getCharacteristic(RX_CHARACTERISTIC_UUID),
+        service.getCharacteristic(TX_CHARACTERISTIC_UUID)
+      ]);
+      
     })
     .then(characteristic => {
       console.log("success:txcharacteristic");
