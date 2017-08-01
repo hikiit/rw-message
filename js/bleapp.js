@@ -81,7 +81,7 @@ function searchBLE() {
 function readValueBLE() {
   var ary_u8 = new Uint8Array( [] );
   try {
-    bleCharacteristic.readValue(ary_u8)
+    rxCharacteristic.readValue(ary_u8)
     .then(value => {
       let message = value.getUint8(0);
       console.log(message);
@@ -97,7 +97,7 @@ function writeValueBLE() {
   var ary_u8 = new Uint8Array( new TextEncoder("utf-8").encode(form_d) );
   console.log(ary_u8);
   try {
-    bleCharacteristic.writeValue(ary_u8);
+    txCharacteristic.writeValue(ary_u8);
   }
   catch (e) {
     console.log(e);
