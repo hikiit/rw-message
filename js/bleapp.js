@@ -79,13 +79,15 @@ function searchBLE() {
 }
 
 function readValueBLE() {
-  var ary_u8 = new Uint8Array( [] );
+//  var ary_u8 = new Uint8Array( [] );
+let message;
+
   try {
-    rxCharacteristic.readValue(ary_u8)
-    .then(value => {
-      let message = value.getUint8(0);
-      console.log(message);
-    });
+    rxCharacteristic.readValue()
+      .then(value => {
+        message = value.getUint8(0);
+        console.log(message);
+      });
   }
   catch (e) {
     console.log(e);
