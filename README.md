@@ -2,6 +2,8 @@
 
 Web Bluetooth APIを利用してメッセージの送受信を行います。
 
+## Web Bluetooth API
+
 https://webbluetoothcg.github.io/web-bluetooth/
 
 https://github.com/WebBluetoothCG/web-bluetooth
