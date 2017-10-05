@@ -1,7 +1,7 @@
 // UUID
 const SERVICE_UUID = "713d0000-503e-4c75-ba94-3148f18d941e";
-const TX_CHARACTERISTIC_UUID = "713d0003-503e-4c75-ba94-3148f18d941e";
 const RX_CHARACTERISTIC_UUID = "713d0002-503e-4c75-ba94-3148f18d941e";
+const TX_CHARACTERISTIC_UUID = "713d0003-503e-4c75-ba94-3148f18d941e";
 
 // キャラクタリスティック
 let txCharacteristic;
@@ -63,8 +63,8 @@ function searchBLE() {
     .then(characteristic => {
       console.log("success:txcharacteristic");
 
-      txCharacteristic = characteristic[0];
-      rxCharacteristic = characteristic[1];
+      rxCharacteristic = characteristic[0];
+      txCharacteristic = characteristic[1];
 
       console.log("success:connect BLE");      
       loading.className = "hide";
