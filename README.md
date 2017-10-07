@@ -11,3 +11,7 @@ https://github.com/WebBluetoothCG/web-bluetooth
 ## BLE Nano
 
 http://redbearlab.com/blenano/
+
+## ATTRIBUTIONS
+
+github.com/inexorabletash/text-encoding

@@ -3,7 +3,7 @@ const SERVICE_UUID = "713d0000-503e-4c75-ba94-3148f18d941e";
 const RX_CHARACTERISTIC_UUID = "713d0002-503e-4c75-ba94-3148f18d941e";
 const TX_CHARACTERISTIC_UUID = "713d0003-503e-4c75-ba94-3148f18d941e";
 
-// キャラクタリスティック
+// Characteristic
 let txCharacteristic;
 let rxCharacteristic;
 
@@ -25,12 +25,12 @@ function init() {
   loading = document.querySelector("#loading");
 }
 
-// BLEデバイスに接続
+// search & connect
 function searchBLE() {
-  // loading表示
+  // ローディング画面の表示
   loading.className = "show";
 
-  // acceptAllDevicesの場合optionalServicesが必要?
+  // acceptAllDevicesの場合optionalServicesが必要みたい
   navigator.bluetooth.requestDevice({
     optionalServices:[SERVICE_UUID],
     acceptAllDevices:true
@@ -54,6 +54,7 @@ function searchBLE() {
     .then(service => {
       console.log("success:service");
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
+      // 配列で複数のキャラクタリスティックの取得が可能
       return Promise.all([
         service.getCharacteristic(RX_CHARACTERISTIC_UUID),
         service.getCharacteristic(TX_CHARACTERISTIC_UUID)
@@ -79,14 +80,14 @@ function searchBLE() {
 }
 
 function readValueBLE() {
-//  var ary_u8 = new Uint8Array( [] );
 let message;
 
   try {
     rxCharacteristic.readValue()
       .then(value => {
-        message = value.getUint8(0);
-        console.log(message);
+        message = value.buffer;
+        console.log(new Uint8Array(message));
+        document.getElementById("data-form").value = new TextDecoder("utf-8").decode(message);
       });
   }
   catch (e) {
@@ -96,6 +97,9 @@ let message;
 
 function writeValueBLE() {
   var form_d = document.getElementById("data-form").value;
+
+  // formの文字列をUTF-8にしてTXCharacteristicに送信
+  // github.com/inexorabletash/text-encoding
   var ary_u8 = new Uint8Array( new TextEncoder("utf-8").encode(form_d) );
   console.log(ary_u8);
   try {
